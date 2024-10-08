@@ -1,29 +1,17 @@
-import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { test, expect } from '@playwright/test';
 
-describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppComponent],
-    }).compileComponents();
-  });
+test('should display the toolbar with To-Do App title', async ({ page }) => {
+  await page.goto('http://localhost:4200');
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+  const toolbar = page.locator('mat-toolbar');
+  await expect(toolbar).toBeVisible();
+  await expect(toolbar).toHaveText('To-Do App');
+});
 
-  it(`should have the 'gui' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('gui');
-  });
+test('should display the button with "Test" text', async ({ page }) => {
+  await page.goto('http://localhost:4200');
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, gui');
-  });
+  const button = page.locator('#test-button');
+  await expect(button).toBeVisible();
+  await expect(button).toHaveText('Test');
 });
