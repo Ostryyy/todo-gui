@@ -10,7 +10,7 @@ import { User } from '../models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = `${environment.apiUrl}/auth`;
 
   private authStore = inject(AuthStore);
   private http = inject(HttpClient);
@@ -35,11 +35,5 @@ export class AuthService {
   logout() {
     this.authStore.logout();
     this.router.navigate(['/login']);
-  }
-
-  isLoggedIn(): boolean {
-    const tokenInStore = this.authStore.token();
-    const tokenInLocalStorage = localStorage.getItem('token');
-    return !!tokenInStore || !!tokenInLocalStorage;
   }
 }
