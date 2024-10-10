@@ -1,6 +1,7 @@
 import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
 
 export const AuthStore = signalStore(
+  { providedIn: 'root' },
   withState({
     isAuthenticated: false,
     user: null as string | null,
