@@ -24,5 +24,17 @@ export const AuthStore = signalStore(
       });
       localStorage.removeItem('token');
     },
+    loadTokenFromStorage(): void {
+      const token = localStorage.getItem('token');
+      if (token) {
+        patchState(store, {
+          isAuthenticated: true,
+          token,
+        });
+      }
+    },
+    isLoggedIn(): boolean {
+      return store.isAuthenticated();
+    },
   }))
 );
