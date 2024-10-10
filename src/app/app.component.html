@@ -1,5 +1,16 @@
-<mat-toolbar color="primary"> To-Do App </mat-toolbar>
+@if(appStore.isLoading()){
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+}@else { @if (authStore.isAuthenticated()) {
+<mat-toolbar color="primary">
+  <span>To-Do App</span>
+  <span class="spacer"></span>
+  <button mat-button (click)="logout()">Logout</button>
+</mat-toolbar>
+}
 
 <div class="container">
-  <button id="test-button" mat-raised-button color="accent">Test</button>
+  <router-outlet></router-outlet>
 </div>
+}
