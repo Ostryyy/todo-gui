@@ -32,6 +32,10 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/register`, { ...user });
   }
 
+  connTest(){
+    return this.http.get(`${this.apiUrl}/conn-test`);
+  }
+
   logout() {
     this.authStore.logout();
     this.router.navigate(['/login']);

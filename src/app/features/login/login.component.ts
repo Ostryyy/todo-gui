@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
   private authService = inject(AuthService);
-  private authStore = inject(AuthStore);
+  protected authStore = inject(AuthStore);
 
   loginForm: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required]),
@@ -53,8 +53,16 @@ export class LoginComponent implements OnInit {
         .login(this.loginForm.value)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
-          next: () => this.router.navigate(['/']),
-          error: () => alert('Login failed'),
+          next: () => {
+            this.authStore.clearLoginMessage();
+            this.router.navigate(['/']);
+          },
+          error: (error) => {
+            this.authStore.setLoginMessage({
+              type: 'err',
+              text: error.error?.error || 'Login failed',
+            });
+          },
         });
     }
   }

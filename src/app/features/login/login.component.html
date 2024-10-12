@@ -1,6 +1,18 @@
 <div class="container">
   <mat-card>
     <mat-card-title class="text-center mt-2 mb-2">Login</mat-card-title>
+    @if (authStore.loginMessage()) {
+    <div
+      class="alert"
+      [ngClass]="{
+        'alert-danger': authStore.loginMessage()?.type === 'err',
+        'alert-info': authStore.loginMessage()?.type === 'info'
+      }"
+    >
+      {{ authStore.loginMessage()?.text }}
+    </div>
+    }
+
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill" class="w-100 mb-2">

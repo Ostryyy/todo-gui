@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
-import { AuthStore } from '../../core/auth/auth.store';
+import { Component, DestroyRef, inject } from '@angular/core';
+import { AuthService } from '../../core/auth/auth.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home',
@@ -8,4 +9,7 @@ import { AuthStore } from '../../core/auth/auth.store';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {}
+export class HomeComponent {
+
+ 
+}

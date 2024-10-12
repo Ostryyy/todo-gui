@@ -32,11 +32,11 @@ import { AuthStore } from '../../core/auth/auth.store';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent implements OnInit{
+export class RegisterComponent implements OnInit {
   private router = inject(Router);
   private destroyRef = inject(DestroyRef);
   private authService = inject(AuthService);
-  private authStore = inject(AuthStore);
+  protected authStore = inject(AuthStore);
 
   registerForm: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required]),
@@ -54,10 +54,15 @@ export class RegisterComponent implements OnInit{
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: () => {
-            alert('Registration successful!');
+            this.authStore.clearRegisterMessage();
             this.router.navigate(['/login']);
           },
-          error: () => alert('Registration failed'),
+          error: (error) => {
+            this.authStore.setRegisterMessage({
+              type: 'err',
+              text: error.error?.error || 'Registration failed',
+            });
+          },
         });
     }
   }
