@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from './core/auth/auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'login',
     loadComponent: () =>
@@ -16,9 +15,15 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'home',
+    path: '',
     loadComponent: () =>
-      import('./features/home/home.component').then((c) => c.HomeComponent),
+      import('./features/tasks/task-list.component').then(
+        (c) => c.TaskListComponent
+      ),
     canActivate: [AuthGuard],
+  },
+  {
+    path: '**',
+    redirectTo: '',
   },
 ];
