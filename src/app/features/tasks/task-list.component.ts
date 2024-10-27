@@ -1,13 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskStore } from '../../core/tasks/tasks.store';
-import { Task } from '../../core/models/task.model';
+import { Task, TaskStatus } from '../../core/models/task.model';
 import { ConfirmDialogComponent } from './items/confirm-dialog/confirm-dialog.component';
 import { TaskDialogComponent } from './items/task-dialog/task-dialog.component';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-task-list',
@@ -17,6 +20,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatCardModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss'],
@@ -24,6 +29,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 export class TaskListComponent implements OnInit {
   protected taskStore = inject(TaskStore);
   public dialog = inject(MatDialog);
+
+  public selectedStatus: TaskStatus | '' = '';
+  public selectedSortField: keyof Task = 'createdAt';
+  public selectedSortOrder: 'asc' | 'desc' = 'asc';
+
+  public filteredTasks: Task[] = [];
 
   ngOnInit() {
     this.taskStore.loadTasks();

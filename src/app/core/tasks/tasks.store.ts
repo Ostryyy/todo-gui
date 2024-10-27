@@ -3,6 +3,7 @@ import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
 import { Task, TaskStatus } from '../models/task.model';
 import { TaskService } from './tasks.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { BehaviorSubject } from 'rxjs';
 
 export const TaskStore = signalStore(
   { providedIn: 'root' },
@@ -97,11 +98,31 @@ export const TaskStore = signalStore(
             },
           });
       },
-      getTasks: (status?: TaskStatus) => {
-        if (status) {
-          return store.tasks().filter((task) => task.status === status);
+      getTasks: (
+        status: TaskStatus | '',
+        sortField?: keyof Task,
+        sortOrder: 'asc' | 'desc' = 'asc'
+      ) => {
+        let tasks = store.tasks();
+
+        if (status !== '') {
+          tasks = tasks.filter((task) => task.status === status);
         }
-        return store.tasks();
+
+        if (sortField) {
+          tasks = tasks.sort((a, b) => {
+            const fieldA = a[sortField];
+            const fieldB = b[sortField];
+
+            if (fieldA === undefined || fieldB === undefined) return 0;
+
+            if (fieldA < fieldB) return sortOrder === 'asc' ? -1 : 1;
+            if (fieldA > fieldB) return sortOrder === 'asc' ? 1 : -1;
+            return 0;
+          });
+        }
+
+        return tasks;
       },
       getError: () => store.error(),
       isLoading: () => store.isLoading(),

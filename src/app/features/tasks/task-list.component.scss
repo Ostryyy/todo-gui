@@ -15,3 +15,27 @@
 .task-card {
     margin-bottom: 20px;
 }
+
+.action-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+
+    .add-task-button {
+        flex-shrink: 0;
+    }
+
+    .filter-sort-container {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .status-select,
+    .sort-select,
+    .sort-order-select {
+        width: 150px;
+    }
+}
