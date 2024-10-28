@@ -67,4 +67,15 @@ export class TaskListComponent implements OnInit {
       }
     });
   }
+
+  getStatusText(status: TaskStatus): string {
+    switch (status) {
+      case 'todo':
+        return 'To Do';
+      case 'in-progress':
+        return 'In Progress';
+      case 'done':
+        return 'Done';
+    }
+  }
 }
