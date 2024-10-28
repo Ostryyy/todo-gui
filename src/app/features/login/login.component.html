@@ -1,8 +1,12 @@
 <div class="container">
   <mat-card>
-    <mat-card-title class="text-center mt-2 mb-2">Login</mat-card-title>
-    @if (authStore.loginMessage()) {
+    <mat-card-title id="login-title" class="text-center mt-2 mb-2"
+      >Login</mat-card-title
+    >
+
     <div
+      *ngIf="authStore.loginMessage()"
+      id="login-message"
       class="alert"
       [ngClass]="{
         'alert-danger': authStore.loginMessage()?.type === 'err',
@@ -11,27 +15,38 @@
     >
       {{ authStore.loginMessage()?.text }}
     </div>
-    }
 
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill" class="w-100 mb-2">
           <mat-label>Username</mat-label>
-          <input matInput formControlName="username" />
-          <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+          <input id="username-input" matInput formControlName="username" />
+          <mat-error
+            *ngIf="loginForm.get('username')?.hasError('required')"
+            id="username-error"
+          >
             Username is required
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="w-100 mb-2">
           <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password" />
-          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          <input
+            id="password-input"
+            matInput
+            type="password"
+            formControlName="password"
+          />
+          <mat-error
+            *ngIf="loginForm.get('password')?.hasError('required')"
+            id="password-error"
+          >
             Password is required
           </mat-error>
         </mat-form-field>
 
         <button
+          id="login-button"
           mat-raised-button
           color="primary"
           type="submit"
@@ -41,7 +56,8 @@
           Login
         </button>
       </form>
-      <div class="text-center mt-3">
+
+      <div id="register-link" class="text-center mt-3">
         Don't have an account? <a routerLink="/register">Register here</a>
       </div>
     </mat-card-content>
