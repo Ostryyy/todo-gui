@@ -27,12 +27,7 @@ This is the front-end application for the To-Do application, built using Angular
    ng serve
    ```
 
-4. **Build for Production**
-   ```bash
-   ng build --prod
-   ```
-
-5. **Docker Deployment**
+4. **Docker Deployment**
    Use the `Dockerfile` to containerize the GUI and deploy on any Docker-supported platform.
    ```bash
    docker build -t todo-gui .
