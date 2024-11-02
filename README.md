@@ -1,27 +1,46 @@
-# Gui
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.5.
+# To-Do Application GUI
 
-## Development server
+## Overview
+This is the front-end application for the To-Do application, built using Angular. It provides a user interface for managing tasks, including creating, updating, and deleting tasks.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
+- Responsive design with Bootstrap and Angular Material integration
+- Task management interface (Create, Update, Delete)
+- Docker setup for deployment
 
-## Code scaffolding
+## Getting Started
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. **Clone the Repository**
+   ```bash
+   git clone <repository_url>
+   cd todo-gui
+   ```
 
-## Build
+2. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+3. **Run the Application Locally**
+   ```bash
+   ng serve
+   ```
 
-## Running unit tests
+4. **Build for Production**
+   ```bash
+   ng build --prod
+   ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+5. **Docker Deployment**
+   Use the `Dockerfile` to containerize the GUI and deploy on any Docker-supported platform.
+   ```bash
+   docker build -t todo-gui .
+   docker run -p 80:80 todo-gui
+   ```
 
-## Running end-to-end tests
+## Configuration
+- **Environment Settings:** Modify settings in `src/environments/` for different environments.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Additional Information
+This project uses `nginx.conf` to serve the production build and manage API proxying.
